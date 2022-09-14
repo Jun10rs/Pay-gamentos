@@ -13,9 +13,10 @@ import Logo from "../../../assets/pay_gamentos.png";
 
 export default function Login() {
 
+
   return (
 
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={commonStyles.container}>
       <Image 
       style={styles.logo} 
       source={Logo} 
@@ -24,6 +25,7 @@ export default function Login() {
       <TextInput
         placeholder="CPF"
         style={styles.input}
+        keyboardType="numeric"
         selectionColor="#5882FA"
       />
 
@@ -31,6 +33,7 @@ export default function Login() {
         placeholder="Password"
         style={styles.input}
         selectionColor="#5882FA"
+        secureTextEntry
       />
 
       <TouchableOpacity style={commonStyles.button}>
@@ -43,11 +46,6 @@ export default function Login() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
 
   logo: {
     width: "80%",

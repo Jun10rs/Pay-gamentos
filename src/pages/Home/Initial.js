@@ -1,10 +1,9 @@
 import {
-  StyleSheet,
   Text,
-  View,
   TouchableOpacity,
   Dimensions,
   SafeAreaView,
+  StatusBar
 } from "react-native";
 
 import { useState, useEffect } from "react";
@@ -24,7 +23,8 @@ export default function Initial({navigation}) {
    }
 
   return (
-    <SafeAreaView style={styles.container}>
+    <SafeAreaView style={commonStyles.container}>
+      <StatusBar backgroundColor="#5882FA" />
 
       <LottieView
         autoPlay
@@ -32,13 +32,13 @@ export default function Initial({navigation}) {
         source={Animation}
       />
 
-      <TouchableOpacity style={commonStyles.button}
+      <TouchableOpacity style={commonStyles.buttonInitial}
       onPress={navigateNewAccount}
       >
         <Text style={commonStyles.buttonText}>Abrir conta gratuita</Text>
       </TouchableOpacity>
 
-      <TouchableOpacity style={commonStyles.button}
+      <TouchableOpacity style={commonStyles.buttonInitial}
         onPress={navigateLogin}
       >
         <Text style={commonStyles.buttonText}>Fazer login</Text>
@@ -47,12 +47,3 @@ export default function Initial({navigation}) {
   );
 }
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    alignItems: "center",
-    justifyContent: "center",
-  },
-
- 
-});
