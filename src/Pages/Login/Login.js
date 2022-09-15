@@ -7,7 +7,7 @@ import {
   StyleSheet,
 } from "react-native";
 
-import { commonStyles } from "../CommonStyles/CommonStyles";
+import { commonStyles } from "../../Styles/CommonStyles";
 
 import Logo from "../../../assets/pay_gamentos.png";
 

@@ -9,7 +9,7 @@ import {
   View,
 } from "react-native";
 
-import { commonStyles } from "../CommonStyles/CommonStyles";
+import { commonStyles } from "../../Styles/CommonStyles";
 
 export default function Account({navigation}) {
 

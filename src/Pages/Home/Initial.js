@@ -9,7 +9,7 @@ import {
 import { useState, useEffect } from "react";
 import LottieView from "lottie-react-native";
 
-import { commonStyles } from "../CommonStyles/CommonStyles";
+import { commonStyles } from "../../Styles/CommonStyles";
 
 import Animation from "../../../assets/94500-snap-and-pay.json";
 

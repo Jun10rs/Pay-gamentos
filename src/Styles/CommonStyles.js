@@ -13,7 +13,7 @@ export const commonStyles = StyleSheet.create({
     color: "#5882FA",
     fontWeight: "bold",
     alignSelf: "center",
-    marginVertical: 20,
+    marginVertical: 30,
   },
 
   buttonInitial: {
@@ -43,5 +43,13 @@ export const commonStyles = StyleSheet.create({
     borderRadius: 10,
     marginBottom: 20,
     padding: 10,
+  },
+
+  boxButton: {
+    flexDirection: "row",
+    width: "80%",
+    justifyContent: "space-between",
+    marginTop: 20,
+    //backgroundColor:'red'
   },
 });

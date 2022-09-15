@@ -13,7 +13,7 @@ import { useState, useEffect } from "react";
 
 import { Picker } from "@react-native-picker/picker";
 
-import { commonStyles } from "../CommonStyles/CommonStyles";
+import { commonStyles } from "../../Styles/CommonStyles";
 
 export default function Account({ navigation }) {
 
@@ -91,7 +91,7 @@ export default function Account({ navigation }) {
             secureTextEntry
           />
 
-          <View style={styles.boxButton}>
+          <View style={commonStyles.boxButton}>
             <TouchableOpacity 
             style={styles.button} 
             onPress={returnAccount}
@@ -126,12 +126,6 @@ const styles = StyleSheet.create({
     alignSelf: "flex-start",
   },
 
-  boxButton: {
-    flexDirection: "row",
-    width: "80%",
-    //backgroundColor: 'red',
-    justifyContent: "space-between",
-  },
 
   button: {
     width: "45%",
