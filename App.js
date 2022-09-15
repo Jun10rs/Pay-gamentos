@@ -20,13 +20,12 @@ import Tickets from "./src/Pages/Boletos/Tickets";
 import AccountData from "./src/Pages/DadosConta/AccountData";
 
 
-
-
 function HomeNavigator() {
   return (
     <Tab.Navigator
       screenOptions={{
         tabBarActiveTintColor: "red",
+        tabBarInactiveTintColor: 'blue'
       }}
     >
       <Tab.Screen 

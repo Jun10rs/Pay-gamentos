@@ -13,7 +13,11 @@ import { commonStyles } from "../../Styles/CommonStyles";
 
 import Animation from "../../../assets/94500-snap-and-pay.json";
 
+export const API = 'http://1616-2804-15e4-8060-600-2e7e-2635-7654-2464.ngrok.io'
+
 export default function Initial({navigation}) {
+
+  
    function navigateLogin() {
     navigation.navigate ('Login');
    }

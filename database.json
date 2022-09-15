@@ -1,5 +1,12 @@
 {
-    "user": {
+    "users": [
+        {
+            "id": 1,
+            "name": "Junior Silva",
+            "cpf": "05939029981",
+            "password": "123456"
+        }
+    ] 
         
-    }
+    
 }
