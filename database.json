@@ -1,12 +1,153 @@
 {
-    "users": [
-        {
-            "id": 1,
-            "name": "Junior Silva",
-            "cpf": "05939029981",
-            "password": "123456"
-        }
-    ] 
-        
-    
+  "users": [
+    {
+      "id": 1,
+      "fullname": "",
+      "phone_number": "",
+      "email": "",
+      "number_rg": "",
+      "cpf": "",
+      "password": "",
+      "address": {
+        "cep": "Cep do usuário",
+        "street": "Rua do usuário",
+        "city": "Cidade do usuário",
+        "state": "Estado do usuário",
+        "region": "Bairro do usuário",
+        "number": "Número da casa do usuário",
+        "complement": "Complemento do usuário"
+      }
+    },
+    {
+      "fullname": "Hehejdjsksks",
+      "phoneNumber": "64646491848",
+      "email": "Gehehe@hotmail.com",
+      "number_rg": "64646838648",
+      "cpf": "51643798826",
+      "password": "24q6aushdjdkdkk",
+      "id": 2
+    },
+    {
+      "fullname": "Hehejdjsksks",
+      "phoneNumber": "64646491848",
+      "email": "Gehehe@hotmail.com",
+      "number_rg": "64646838648",
+      "cpf": "51643798826",
+      "password": "24q6aushdjdkdkk",
+      "id": 3
+    }
+  ],
+
+  "uf": [
+    {   
+        "id": 1,
+        "nome": "Acre",
+        "sigla": "AC"
+    },
+    {
+        "id": 2,
+        "nome": "Alagoas",
+        "sigla": "AL"
+    },
+    {
+        "nome": "Amapá",
+        "sigla": "AP"
+    },
+    {
+        "nome": "Amazonas",
+        "sigla": "AM"
+    },
+    {
+        "nome": "Bahia",
+        "sigla": "BA"
+    },
+    {
+        "nome": "Ceará",
+        "sigla": "CE"
+    },
+    {
+        "nome": "Distrito Federal",
+        "sigla": "DF"
+    },
+    {
+        "nome": "Espírito Santo",
+        "sigla": "ES"
+    },
+    {
+        "nome": "Goiás",
+        "sigla": "GO"
+    },
+    {
+        "nome": "Maranhão",
+        "sigla": "MA"
+    },
+    {
+        "nome": "Mato Grosso",
+        "sigla": "MT"
+    },
+    {
+        "nome": "Mato Grosso do Sul",
+        "sigla": "MS"
+    },
+    {
+        "nome": "Minas Gerais",
+        "sigla": "MG"
+    },
+    {
+        "nome": "Pará",
+        "sigla": "PA"
+    },
+    {
+        "nome": "Paraíba",
+        "sigla": "PB"
+    },
+    {
+        "nome": "Paraná",
+        "sigla": "PR"
+    },
+    {
+        "nome": "Pernambuco",
+        "sigla": "PE"
+    },
+    {
+        "nome": "Piauí",
+        "sigla": "PI"
+    },
+    {
+        "nome": "Rio de Janeiro",
+        "sigla": "RJ"
+    },
+    {
+        "nome": "Rio Grande do Norte",
+        "sigla": "RN"
+    },
+    {
+        "nome": "Rio Grande do Sul",
+        "sigla": "RS"
+    },
+    {
+        "nome": "Rondônia",
+        "sigla": "RO"
+    },
+    {
+        "nome": "Roraima",
+        "sigla": "RR"
+    },
+    {
+        "nome": "Santa Catarina",
+        "sigla": "SC"
+    },
+    {
+        "nome": "São Paulo",
+        "sigla": "SP"
+    },
+    {
+        "nome": "Sergipe",
+        "sigla": "SE"
+    },
+    {
+        "nome": "Tocantins",
+        "sigla": "TO"
+    }
+    ]
 }

@@ -1,3 +1,4 @@
+import { useState } from "react";
 import {
   Text,
   SafeAreaView,
@@ -10,20 +11,52 @@ import {
 } from "react-native";
 
 import { commonStyles } from "../../Styles/CommonStyles";
+import { API } from "../API/Api";
 
-export default function Account({navigation}) {
+export default function Account({ navigation }) {
 
-    function navigateInitial (){
-        navigation.navigate ('Initial')
+  const [fullname, setFullmane] = useState("");
+  const [phone_number, setPhone_number] = useState("");
+  const [email, setEmail] = useState("");
+  const [number_rg, setNumber_rg] = useState("");
+  const [cpf, setCpf] = useState("");
+  const [password, setPassword] = useState("");
+
+  function returnInitial() {
+    navigation.navigate("Initial");
+  }
+
+  function saveRegistration() {
+    if (fullname.length < 8 || fullname.length > 120) {
+      alert("O nome deve ter entre 8 á 120 caracteres");
+    } else if (!phone_number) {
+      alert("Numero de telefone obrigatório");
+    } else if (!email) {
+      alert("Endereço de email obrigatório");
+    } else if (!number_rg) {
+      alert("Numero RG obrigatório");
+    } else if (cpf.length < 11) {
+      alert("O CPF deve ter 11 caracteres");
+    } else if (password.length < 8 || password.length > 16) {
+      alert("A senha deve ter entre 8 á 16 caracteres");
+    } else {
+      navigation.navigate ('Address', {
+        users: {
+          fullname: fullname,
+          phone_number: phone_number,
+          email: email,
+          number_rg: number_rg,
+          cpf: cpf,
+          password: password,
+        }, 
+      })
+        
     }
-
-    function navigateAdress () {
-        navigation.navigate ('Adress')
-    }
-
+  }
+  
 
   return (
-    <SafeAreaView style={{flex:1}}>
+    <SafeAreaView style={{ flex: 1 }}>
       <StatusBar backgroundColor="#5882FA" />
 
       <ScrollView>
@@ -31,60 +64,67 @@ export default function Account({navigation}) {
           <Text style={styles.title}>NOVA CONTA</Text>
 
           <Text style={styles.inputText}>Nome completo</Text>
-          <TextInput 
-          style={commonStyles.input} 
-          selectionColor="#5882FA"
-          maxLength={120} 
+          <TextInput
+            style={commonStyles.input}
+            selectionColor="#5882FA"
+            maxLength={120}
+            onChangeText={setFullmane}
+            value={fullname}
           />
 
           <Text style={styles.inputText}>Telefone</Text>
-          <TextInput 
-          style={commonStyles.input} 
-          selectionColor="#5882FA"
-          keyboardType="phone-pad"
+          <TextInput
+            style={commonStyles.input}
+            selectionColor="#5882FA"
+            keyboardType="phone-pad"
+            onChangeText={setPhone_number}
+            value={phone_number}
           />
 
           <Text style={styles.inputText}>Email</Text>
-          <TextInput 
-          style={commonStyles.input} 
-          selectionColor="#5882FA"
-          keyboardType="email-address"
+          <TextInput
+            style={commonStyles.input}
+            selectionColor="#5882FA"
+            keyboardType="email-address"
+            onChangeText={setEmail}
+            value={email}
           />
 
           <Text style={styles.inputText}>Nº do RG</Text>
-          <TextInput 
-          style={commonStyles.input} 
-          selectionColor="#5882FA" 
-          keyboardType="decimal-pad"
+          <TextInput
+            style={commonStyles.input}
+            selectionColor="#5882FA"
+            keyboardType="numeric"
+            onChangeText={setNumber_rg}
+            value={number_rg}
           />
 
           <Text style={styles.inputText}>CPF</Text>
-          <TextInput 
-          style={commonStyles.input} 
-          selectionColor="#5882FA" 
-          keyboardType="numeric"
-          maxLength={11}
+          <TextInput
+            style={commonStyles.input}
+            selectionColor="#5882FA"
+            keyboardType="numeric"
+            maxLength={11}
+            onChangeText={setCpf}
+            value={cpf}
           />
 
           <Text style={styles.inputText}>Password</Text>
-          <TextInput 
-          style={commonStyles.input} 
-          selectionColor="#5882FA"
-          maxLength={16}
-          secureTextEntry
-          
+          <TextInput
+            style={commonStyles.input}
+            selectionColor="#5882FA"
+            maxLength={16}
+            secureTextEntry
+            onChangeText={setPassword}
+            value={password}
           />
 
           <View style={styles.boxButton}>
-            <TouchableOpacity style={styles.button}
-            onPress={navigateInitial}
-            >
+            <TouchableOpacity style={styles.button} onPress={returnInitial}>
               <Text style={commonStyles.buttonText}>Voltar</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.button}
-            onPress={navigateAdress}
-            >
+            <TouchableOpacity style={styles.button} onPress={saveRegistration}>
               <Text style={commonStyles.buttonText}>Continuar</Text>
             </TouchableOpacity>
           </View>
@@ -95,7 +135,6 @@ export default function Account({navigation}) {
 }
 
 const styles = StyleSheet.create({
-
   container: {
     alignItems: "center",
   },
@@ -103,10 +142,10 @@ const styles = StyleSheet.create({
   inputText: {
     fontSize: 20,
     fontWeight: "bold",
-    marginLeft:42,
+    marginLeft: 42,
     marginBottom: 5,
-    color: '#585858',
-    alignSelf:'flex-start'
+    color: "#585858",
+    alignSelf: "flex-start",
   },
 
   title: {
