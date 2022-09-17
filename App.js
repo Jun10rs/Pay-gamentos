@@ -73,7 +73,7 @@ function HomeNavigator() {
 export default function App() {
   return (
     <NavigationContainer>
-      <StackApp.Navigator initialRouteName="Address">
+      <StackApp.Navigator initialRouteName="Initial">
         <StackApp.Screen
           name="Home"
           component={HomeNavigator}

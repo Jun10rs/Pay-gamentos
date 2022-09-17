@@ -8,50 +8,59 @@ import {
   StatusBar,
   View,
 } from "react-native";
-import { API } from "../API/Api";
 
-import { useState, useEffect } from "react";
+import { useState } from "react";
 
 import { Picker } from "@react-native-picker/picker";
 
 import { commonStyles } from "../../Styles/CommonStyles";
-import Billings from "../Cobrança/Billings";
 
-export default function Address({ navigation, route }) {
-  const [uf, setUf] = useState([]);
+export default function Address({navigation, route}) {
+  const { user } = route.params;
+  console.log(route.params)
 
-  //const { users } = route.params;
-
-  const [select, setSelect] = useState("");
+  //const [uf, setUf] = useState("");
+  const [cep, setCep] = useState("");
+  const [street, setStreet] = useState("");
+  const [city, setCity] = useState("");
+  const [state, setState] = useState("");
+  const [region, setRegion] = useState("");
+  const [number, setNumber] = useState("");
+  const [complement, setComplement] = useState("");
 
   function returnAccount() {
     navigation.navigate("Account");
   }
 
-  function navigateBillings() {
-    fetch(API + "/uf?_limit=10")
-      .then(async (response) => {
-        const data = await response.json();
-        setUf(data);
-      })
-      .catch(() => console.log("Houve um erro"));
- 
-    navigation.navigate("Billings", {
-      onPress: () => navigation.navigate( Billings, {
-        users: users,
-        select: setSelect
-      })
-      
-    });
+  function saveAddress() {
+    if (!cep) {
+      alert("Informe um CEP válido!");
+    } else if (!street) {
+      alert("Nome da rua obrigatório");
+    } else if (!city) {
+      alert("Nome da cidade obrigatório");
+    } else if (!state) {
+      alert("Selecione o estado!");
+    } else if (!region) {
+      alert("Nome do bairro obrigatório");
+    } else if (!number) {
+      alert("Informe o numero da residência");
+    } else {
+      navigation.navigate("Billings", {
+        user: user,     
+        address: {
+          cep: cep,
+          street: street,
+          city: city,
+          state: state,
+          region: region,
+          number: number,
+          complement: complement,
+        },
+      });
+    }
   }
-  function selectState (statenome) {
-    setS
 
-  }
-
- 
-    
-  
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar backgroundColor="#5882FA" />
@@ -65,33 +74,46 @@ export default function Address({ navigation, route }) {
             style={commonStyles.input}
             selectionColor="#5882FA"
             maxLength={120}
+            keyboardType="numeric"
+            value={cep}
+            onChangeText={setCep}
           />
 
           <Text style={styles.inputText}>Rua</Text>
-          <TextInput style={commonStyles.input} selectionColor="#5882FA" />
+          <TextInput
+            style={commonStyles.input}
+            selectionColor="#5882FA"
+            value={street}
+            onChangeText={setStreet}
+          />
 
           <Text style={styles.inputText}>Cidade</Text>
-          <TextInput style={commonStyles.input} selectionColor="#5882FA" />
+          <TextInput
+            style={commonStyles.input}
+            selectionColor="#5882FA"
+            value={city}
+            onChangeText={setCity}
+          />
 
-          {uf.map((state) => (
-            <View style={styles.boxSelect}>
-              <Picker
-                selectedValue={uf}
-                onValueChange={(value) => setUf(value)}
-                style={styles.select}
-                mode='dialog'
-              >
-                <Picker.Item label={state.nome} value={state.sigla} />
-              </Picker>
-            </View>
-          ))}
+          <View style={styles.boxSelect}>
+            <Picker
+              selectedValue={state}
+              onValueChange={(value) => setState(value)}
+              style={styles.select}
+              //mode="dropdown"
+            >
+              
+              <Picker.Item label="Selecione" value="" />
+              <Picker.Item label="Santa Catarina" value="sc" />
+            </Picker>
+          </View>
 
           <Text style={styles.inputText}>Bairro</Text>
           <TextInput
             style={commonStyles.input}
             selectionColor="#5882FA"
-            keyboardType="numeric"
-            maxLength={11}
+            value={region}
+            onChangeText={setRegion}
           />
 
           <Text style={styles.inputText}>Nº da Residência</Text>
@@ -99,14 +121,19 @@ export default function Address({ navigation, route }) {
             style={commonStyles.input}
             selectionColor="#5882FA"
             keyboardType="decimal-pad"
+            value={number}
+            onChangeText={setNumber}
           />
 
           <Text style={styles.inputText}>Complemento</Text>
           <TextInput
             style={commonStyles.input}
+            placeholder="opcional"
             selectionColor="#5882FA"
             maxLength={16}
             secureTextEntry
+            value={complement}
+            onChangeText={setComplement}
           />
 
           <View style={commonStyles.boxButton}>
@@ -114,7 +141,7 @@ export default function Address({ navigation, route }) {
               <Text style={commonStyles.buttonText}>Voltar</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.button} onPress={navigateBillings}>
+            <TouchableOpacity style={styles.button} onPress={saveAddress}>
               <Text style={commonStyles.buttonText}>Continuar</Text>
             </TouchableOpacity>
           </View>

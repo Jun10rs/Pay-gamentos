@@ -11,16 +11,17 @@ import {
 } from "react-native";
 
 import { commonStyles } from "../../Styles/CommonStyles";
-import { API } from "../API/Api";
+//import { API } from "../API/Api";
 
 export default function Account({ navigation }) {
-
   const [fullname, setFullmane] = useState("");
   const [phone_number, setPhone_number] = useState("");
   const [email, setEmail] = useState("");
   const [number_rg, setNumber_rg] = useState("");
   const [cpf, setCpf] = useState("");
   const [password, setPassword] = useState("");
+
+  const [login, setlogin] = useState ([])
 
   function returnInitial() {
     navigation.navigate("Initial");
@@ -40,20 +41,18 @@ export default function Account({ navigation }) {
     } else if (password.length < 8 || password.length > 16) {
       alert("A senha deve ter entre 8 á 16 caracteres");
     } else {
-      navigation.navigate ('Address', {
-        users: {
+      navigation.navigate("Address", {
+        user: {
           fullname: fullname,
           phone_number: phone_number,
           email: email,
           number_rg: number_rg,
           cpf: cpf,
           password: password,
-        }, 
-      })
-        
+        },
+      });
     }
   }
-  
 
   return (
     <SafeAreaView style={{ flex: 1 }}>

@@ -6,18 +6,14 @@ import {
   StatusBar
 } from "react-native";
 
-import { useState, useEffect } from "react";
 import LottieView from "lottie-react-native";
 
 import { commonStyles } from "../../Styles/CommonStyles";
 
 import Animation from "../../../assets/94500-snap-and-pay.json";
 
-
-
 export default function Initial({navigation}) {
-
-  
+ 
    function navigateLogin() {
     navigation.navigate ('Login');
    }

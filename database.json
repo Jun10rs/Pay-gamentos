@@ -2,50 +2,35 @@
   "users": [
     {
       "id": 1,
-      "fullname": "",
-      "phone_number": "",
-      "email": "",
-      "number_rg": "",
-      "cpf": "",
-      "password": "",
+      "fullname": "Junior silva",
+      "phone_number": "47988140666",
+      "email": "7un10rs@gmail",
+      "number_rg": "123434",
+      "cpf": "05939029981",
+      "password": "12345678",
       "address": {
-        "cep": "Cep do usuário",
-        "street": "Rua do usuário",
-        "city": "Cidade do usuário",
-        "state": "Estado do usuário",
-        "region": "Bairro do usuário",
-        "number": "Número da casa do usuário",
-        "complement": "Complemento do usuário"
+        "cep": "89255021",
+        "street": "picarras",
+        "city": "jaragua",
+        "state": "santa Catarina",
+        "region": "centro",
+        "number": "134",
+        "complement": ""
       }
     },
     {
-      "fullname": "Hehejdjsksks",
-      "phoneNumber": "64646491848",
-      "email": "Gehehe@hotmail.com",
-      "number_rg": "64646838648",
-      "cpf": "51643798826",
-      "password": "24q6aushdjdkdkk",
-      "id": 2
-    },
-    {
-      "fullname": "Hehejdjsksks",
-      "phoneNumber": "64646491848",
-      "email": "Gehehe@hotmail.com",
-      "number_rg": "64646838648",
-      "cpf": "51643798826",
-      "password": "24q6aushdjdkdkk",
-      "id": 3
+    "billing_day": ""
     }
   ],
 
   "uf": [
     {   
-        "id": 1,
+        
         "nome": "Acre",
         "sigla": "AC"
     },
     {
-        "id": 2,
+        
         "nome": "Alagoas",
         "sigla": "AL"
     },

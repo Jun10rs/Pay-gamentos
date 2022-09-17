@@ -12,16 +12,56 @@ import {
 } from "react-native";
 
 import { commonStyles } from "../../Styles/CommonStyles";
+import { API } from "../API/Api";
 
-export default function Terms({navigation}) {
-
-  function returnBillings () {
-    navigation.navigate ('Billings')
-  }
-
+export default function Terms({ navigation, route }) {
+  
+  const { user, address, billings } = route.params;
+  console.log(route.params);
 
   const [enabled, setEnabled] = useState(false);
+
   const toggleSwitch = () => setEnabled((previousState) => !previousState);
+
+  function returnBillings() {
+    navigation.navigate("Billings");
+  }
+
+  function addProfile() {
+    if (toggleSwitch === false) {
+    alert('aceite os termos')
+    }else {    
+      fetch(API + "/users", {
+        body: JSON.stringify({
+          fullname: user.fullname,
+          phone_number: user.phone_number,
+          email: user.email,
+          number_rg: user.number_rg,
+          cpf: user.cpf,
+          password: user.password,
+          address: {
+            cep: address.cep,
+            street: address.street,
+            city: address.city,
+            state: address.state,
+            region: address.region,
+            number: address.number,
+            complement: address.complement,
+          },
+        }),
+        method: "POST",
+        headers: {
+          "Content -type": "application/json",
+        },
+      })
+        .then(() => {
+          alert("conta cadastrada");
+          navigation.navigate("Login");
+        })
+        .catch(() => alert("possivel erro"));
+      }
+  }
+  //console.log(addProfile)
 
   return (
     <SafeAreaView>
@@ -86,30 +126,21 @@ export default function Terms({navigation}) {
               ios_backgroundColor="#3e3e3e"
               onValueChange={toggleSwitch}
               value={enabled}
-              
             />
-            <Text style={{color:'#5882FA', fontSize: 20, marginLeft: 10}}>Aceito os termos</Text>
+            <Text style={{ color: "#5882FA", fontSize: 20, marginLeft: 10 }}>
+              Aceito os termos
+            </Text>
           </View>
 
           <View style={commonStyles.boxButton}>
-            <TouchableOpacity
-              style={styles.button}
-              onPress={returnBillings}
-            >
+            <TouchableOpacity style={styles.button} onPress={returnBillings}>
               <Text style={commonStyles.buttonText}>Voltar</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity
-              style={styles.button}
-              //onPress={navigateTerms}
-            >
-              <Text style={commonStyles.buttonText}
-              //onPress={navigateTabs}
-              >Finalizar</Text>
+            <TouchableOpacity style={styles.button} onPress={addProfile}>
+              <Text style={commonStyles.buttonText}>Finalizar</Text>
             </TouchableOpacity>
           </View>
-
-          <TextInput />
         </View>
       </ScrollView>
     </SafeAreaView>
@@ -124,9 +155,9 @@ const styles = StyleSheet.create({
     marginVertical: 20,
   },
 
-  checkbox:{
-    flexDirection:'row',
-    alignItems:'center'
+  checkbox: {
+    flexDirection: "row",
+    alignItems: "center",
   },
 
   button: {

@@ -7,21 +7,37 @@ import {
   SafeAreaView,
   Dimensions,
 } from "react-native";
-import { useState, useEffect } from "react";
+import { useState } from "react";
+//import { API } from "../API/Api";
 
 import { Calendar } from "react-native-calendars";
 import { commonStyles } from "../../Styles/CommonStyles";
 
-export default function Billings({navigation}) {
+import { format, parseISO } from "date-fns";
+import ptBR from "date-fns/locale/pt-BR";
 
-    function returnAdress () {
-        navigation.navigate ('Adress')
-    }
+export default function Billings({ navigation, route }) {
+  const { user, address } = route.params;
+  console.log(route.params);
 
-    function navigateTerms () {
-        navigation.navigate ('Terms')
-    }
-  const [date, setDate] = useState("");
+  const dataAtual = format(new Date(), "yyy-MM-dd");
+  //console.log (dataAtual)
+
+  const [date, setDate] = useState(dataAtual);
+
+  function returnAddress() {
+    navigation.navigate("Address");
+  }
+
+  function navigateTerms() {
+    navigation.navigate("Terms", {
+      user: user,
+      address: address, 
+      billings: {
+        date: date,
+      }
+    })
+  }
 
   return (
     <SafeAreaView style={{ flex: 1 }}>
@@ -29,41 +45,39 @@ export default function Billings({navigation}) {
 
       <View style={styles.container}>
         <Text style={commonStyles.title}>Qual a data da Cobrança?</Text>
-        
-          <Calendar
-            //minDate={dataAtual}
-            style={styles.calendar}
-            markedDates={{
-              [date]: {
-                selected: true,
-                marked: true,
-                selectedColor: "#FFF",
-                dotColor: "red",
-              },
-            }}
-            onDayPress={(currentDate) => setDate(currentDate.dateString)}
-            theme={{
-              selectedDayTextColor: "black",
-              todayTextColor: "#FFF",
-              calendarBackground: "#FFDE59",
-              dayTextColor: "black",
-              arrowColor: "#FFF",
-              monthTextColor: "black",
-            }}
-          />
-        
+
+        <Calendar
+          style={styles.calendar}
+          markedDates={{
+            [date]: {
+              selected: true,
+              marked: true,
+              selectedColor: "#FFF",
+              dotColor: "red",
+            },
+          }}
+          onDayPress={(currentDate) => setDate(currentDate.dateString)}
+          theme={{
+            selectedDayTextColor: "black",
+            todayTextColor: "#FFF",
+            calendarBackground: "#FFDE59",
+            dayTextColor: "black",
+            arrowColor: "#FFF",
+            monthTextColor: "black",
+          }}
+        />
+        <Text>
+          {format(parseISO(date), "dd 'de' MMMM 'de' yyyy", {
+            locale: ptBR,
+          })}
+        </Text>
 
         <View style={commonStyles.boxButton}>
-          <TouchableOpacity 
-          style={styles.button}
-          onPress={returnAdress}
-          >
+          <TouchableOpacity style={styles.button} onPress={returnAddress}>
             <Text style={commonStyles.buttonText}>Voltar</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.button}
-          onPress={navigateTerms}
-          >
+          <TouchableOpacity style={styles.button} onPress={navigateTerms}>
             <Text style={commonStyles.buttonText}>Continuar</Text>
           </TouchableOpacity>
         </View>
@@ -82,7 +96,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     marginVertical: 30,
     width: Dimensions.get("screen").width * 0.8,
-    marginBottom: 200
+    marginBottom: 200,
   },
 
   button: {
