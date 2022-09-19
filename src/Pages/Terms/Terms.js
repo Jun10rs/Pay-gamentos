@@ -12,55 +12,52 @@ import {
 } from "react-native";
 
 import { commonStyles } from "../../Styles/CommonStyles";
-import { API } from "../API/Api";
+import { API } from "../../API/Api";
 
 export default function Terms({ navigation, route }) {
-  
   const { user, address, billings } = route.params;
   console.log(route.params);
 
   const [enabled, setEnabled] = useState(false);
 
-  const toggleSwitch = () => setEnabled((previousState) => !previousState);
+  //const toggleSwitch = () => setEnabled((previousState) => !previousState);
 
   function returnBillings() {
     navigation.navigate("Billings");
   }
 
   function addProfile() {
-    if (toggleSwitch === false) {
-    alert('aceite os termos')
-    }else {    
-      fetch(API + "/users", {
-        body: JSON.stringify({
-          fullname: user.fullname,
-          phone_number: user.phone_number,
-          email: user.email,
-          number_rg: user.number_rg,
-          cpf: user.cpf,
-          password: user.password,
-          address: {
-            cep: address.cep,
-            street: address.street,
-            city: address.city,
-            state: address.state,
-            region: address.region,
-            number: address.number,
-            complement: address.complement,
-          },
-        }),
-        method: "POST",
-        headers: {
-          "Content -type": "application/json",
+    fetch(API + "/users", {
+      body: JSON.stringify({
+        fullname: user.fullname,
+        phone_number: user.phone_number,
+        email: user.email,
+        number_rg: user.number_rg,
+        cpf: user.cpf,
+        password: user.password,
+        address: {
+          cep: address.cep,
+          street: address.street,
+          city: address.city,
+          state: address.state,
+          region: address.region,
+          number: address.number,
+          complement: address.complement,
         },
+        billings_day: billings,
+      }),
+      method: "POST",
+      headers: {
+        "Content-type": "application/json",
+      },
+    })
+      .then(() => {
+        alert("conta cadastrada");
+        navigation.navigate("Login");
       })
-        .then(() => {
-          alert("conta cadastrada");
-          navigation.navigate("Login");
-        })
-        .catch(() => alert("possivel erro"));
-      }
+      .catch(() => alert("possivel erro"));
   }
+
   //console.log(addProfile)
 
   return (
@@ -124,7 +121,7 @@ export default function Terms({ navigation, route }) {
               trackColor={{ false: "#767577", true: "#5882FA" }}
               thumbColor={enabled ? "#FFDE59" : "#f4f3f4"}
               ios_backgroundColor="#3e3e3e"
-              onValueChange={toggleSwitch}
+              onValueChange={() => setEnabled(!enabled)}
               value={enabled}
             />
             <Text style={{ color: "#5882FA", fontSize: 20, marginLeft: 10 }}>
@@ -137,7 +134,11 @@ export default function Terms({ navigation, route }) {
               <Text style={commonStyles.buttonText}>Voltar</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.button} onPress={addProfile}>
+            <TouchableOpacity 
+            style={styles.button} 
+            onPress={addProfile}
+            disabled={!enabled}
+            >
               <Text style={commonStyles.buttonText}>Finalizar</Text>
             </TouchableOpacity>
           </View>

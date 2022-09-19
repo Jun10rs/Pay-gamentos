@@ -24,6 +24,7 @@ export default function Billings({ navigation, route }) {
   //console.log (dataAtual)
 
   const [date, setDate] = useState(dataAtual);
+  console.log (date)
 
   function returnAddress() {
     navigation.navigate("Address");
@@ -34,7 +35,7 @@ export default function Billings({ navigation, route }) {
       user: user,
       address: address, 
       billings: {
-        date: date,
+        date
       }
     })
   }
@@ -66,11 +67,6 @@ export default function Billings({ navigation, route }) {
             monthTextColor: "black",
           }}
         />
-        <Text>
-          {format(parseISO(date), "dd 'de' MMMM 'de' yyyy", {
-            locale: ptBR,
-          })}
-        </Text>
 
         <View style={commonStyles.boxButton}>
           <TouchableOpacity style={styles.button} onPress={returnAddress}>

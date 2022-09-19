@@ -1,1 +1,0 @@
-export const API = 'http://cd58-2804-15e4-8060-600-d9c6-3929-137a-30c1.ngrok.io'

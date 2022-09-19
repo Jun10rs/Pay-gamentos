@@ -14,12 +14,12 @@ import { useState } from "react";
 import { Picker } from "@react-native-picker/picker";
 
 import { commonStyles } from "../../Styles/CommonStyles";
+import { states } from "../States/states";
 
 export default function Address({navigation, route}) {
   const { user } = route.params;
   console.log(route.params)
 
-  //const [uf, setUf] = useState("");
   const [cep, setCep] = useState("");
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
@@ -100,11 +100,12 @@ export default function Address({navigation, route}) {
               selectedValue={state}
               onValueChange={(value) => setState(value)}
               style={styles.select}
-              //mode="dropdown"
-            >
               
+            >
               <Picker.Item label="Selecione" value="" />
-              <Picker.Item label="Santa Catarina" value="sc" />
+              {
+                states.map((uf)=> (<Picker.Item key={uf.sigla} label={uf.nome} value={uf.sigla} />))
+              }
             </Picker>
           </View>
 

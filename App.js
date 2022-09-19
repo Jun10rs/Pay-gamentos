@@ -7,6 +7,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { FontAwesome } from "@expo/vector-icons";
 
 const StackApp = createStackNavigator();
+const StackDetail = createStackNavigator()
 const Tab = createBottomTabNavigator();
 
 import Initial from "./src/Pages/Home/Initial";
@@ -18,10 +19,25 @@ import Terms from "./src/Pages/Terms/Terms";
 import BarCode from "./src/Pages/BarCode/BarCode";
 import Tickets from "./src/Pages/Boletos/Tickets";
 import AccountData from "./src/Pages/DadosConta/AccountData";
+import DetailsTickets from "./src/Pages/DetailsTickets/DetailsTickets";
+
+
+// function detailsTickets(){
+//   return(
+//     <StackDetail.Navigator>
+//       <StackDetail.Screen
+//       name="DetailsTickets"
+//       component={DetailsTickets}
+//       />
+//     </StackDetail.Navigator>
+    
+//   )
+// }
 
 function HomeNavigator() {
   return (
     <Tab.Navigator
+    initialRouteName="AccountData"
       screenOptions={{
         tabBarActiveTintColor: "red",
         tabBarInactiveTintColor: "blue",
@@ -31,6 +47,7 @@ function HomeNavigator() {
         name="BarCode"
         component={BarCode}
         options={{
+          unmountOnBlur: true,
           headerShown: false,
           tabBarLabel: "Scan Code",
           tabBarIcon: ({ color }) => (

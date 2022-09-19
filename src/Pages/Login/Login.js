@@ -6,16 +6,20 @@ import {
   SafeAreaView,
   StyleSheet,
   Alert,
+  View,
 } from "react-native";
 
 import { useState } from "react";
-import { API } from "../API/Api"
+import { API } from "../../API/Api"
 
 import { commonStyles } from "../../Styles/CommonStyles";
 
 import Logo from "../../../assets/pay_gamentos.png";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+
 
 export default function Login({ navigation }) {
+
   const [cpf, setCpf] = useState('');
   const [password, setPassword] = useState('');
 
@@ -31,9 +35,10 @@ export default function Login({ navigation }) {
     } else if (cpf.length === 11 || password.length === 6) {
       fetch(API + "/users?cpf=" + cpf + "&password=" + password)
         .then(async (response) => {
+          //AsyncStorage.setItem('@pay_gamentos:id_login', JSON.stringify([cpf]))
           const data = await response.json();
           if (data.length === 1) {
-            navigation.navigate("Home");
+            navigation.navigate("Home")
           } else {
             alert ('Usuário não encontrado')
           }
@@ -43,7 +48,8 @@ export default function Login({ navigation }) {
   }
 
   return (
-    <SafeAreaView style={commonStyles.container}>
+    <SafeAreaView style={{flex:1}}>
+      <View style={commonStyles.container}>
       <Image style={styles.logo} source={Logo} />
 
       <TextInput
@@ -77,6 +83,7 @@ export default function Login({ navigation }) {
       <Text style={styles.textFree} onPress={navigateNewAccount}>
         Abrir conta gratuita
       </Text>
+      </View>
     </SafeAreaView>
   );
 }
