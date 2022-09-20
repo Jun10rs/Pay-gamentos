@@ -20,7 +20,7 @@ export default function Billings({ navigation, route }) {
   const { user, address } = route.params;
   console.log(route.params);
 
-  const dataAtual = format(new Date(), "yyy-MM-dd");
+  const dataAtual = format(new Date(), "dd-MM-yyy");
   //console.log (dataAtual)
 
   const [date, setDate] = useState(dataAtual);

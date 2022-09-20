@@ -9,43 +9,55 @@ import {
   StyleSheet,
   Dimensions,
 } from "react-native";
-import { API } from "../../API/Api";
+import { API } from "../../Services/API/Api";
 import { commonStyles } from "../../Styles/CommonStyles";
+import { useIsFocused } from "@react-navigation/native";
+import AsyncStorage from "@react-native-async-storage/async-storage";
+//import { id } from "date-fns/locale";
 
-export default function BarCode() {
-
+export default function BarCode({ navigation }) {
+  const [result, setResult] = useState("");
   const [hasPermission, setHasPermission] = useState(false);
   const [scanned, setScanned] = useState(false);
+  const telaFocada = useIsFocused("");
 
   const getPermission = async () => {
     const { status } = await BarCodeScanner.requestPermissionsAsync();
     console.log(status);
     setHasPermission(status === "granted" ? true : false);
   };
-  // getPermission()
 
-  // useEffect(() => {
-  //   ;
-  // }, []);
+  useEffect(() => {
+    if (telaFocada === true) {
+      getPermission();
+    }
+    getResult();
+  }, []);
 
-  function getResult({ data}) {
+  const getResult = async () => {
+    const value = await AsyncStorage.getItem("@pay_gamentos:id_login");
+    setResult(JSON.parse(value));
+    console.log(result);
+  };
+
+  function getVerification({ data }) {
+    fetch(API + "/debts/" + data)
+      .then(async (response) => {
+        const data = await response.json();
+        navigation.navigate("DetailsTickets", {
+          debts: {
+            id: data.id,
+            recipient: data.recipient,
+            amount: data.amount,
+            user_id: result.id,
+            date: result.billing_day,
+          },
+        });
+        console.log(data);
+      })
+      .catch(() => alert("Boleto não encontrado"));
     setScanned(true);
     console.log(data);
-    
-
-    // fetch(API + "/invoices", {
-    //   body: JSON.stringify({
-    //     id: id,
-    //   }),
-    //   method: "POST",
-    //   headers: {
-    //     "Content-type": "application/json",
-    //   },
-    // })
-    //   .then(() => {
-    //     alert("code saved");
-    //   })
-    //   .catch(() => alert("possivel erro"));
   }
 
   function openCamera() {
@@ -56,7 +68,7 @@ export default function BarCode() {
   return (
     <SafeAreaView style={{ flex: 1 }}>
       <StatusBar backgroundColor="#5882FA" />
-      <Text style={commonStyles.title}>OLÁ, JUNIOR</Text>
+      <Text style={commonStyles.title}>Olá, {result.fullname}</Text>
 
       <View style={commonStyles.container}>
         {hasPermission === false && <Text>Permissão para câmera negada</Text>}
@@ -64,9 +76,9 @@ export default function BarCode() {
         {hasPermission === true && scanned === false && (
           <BarCodeScanner
             barCodeTypes={[BarCodeScanner.Constants.BarCodeType.code39]}
-            onBarCodeScanned={getResult}
+            onBarCodeScanned={getVerification}
             style={{
-              width: Dimensions.get("screen").width * 0.8,
+              width: Dimensions.get("screen").width * 0.9,
               height: Dimensions.get("screen").height * 0.6,
             }}
           />

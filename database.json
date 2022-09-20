@@ -17,7 +17,28 @@
         "number": "134",
         "complement": ""
       },
-      "billing_day": ""
+      "billing_day": "20-09-2022"
+    },
+    {
+      "fullname": "Juliana b a ",
+      "phone_number": "47988162356",
+      "email": "juju@hotmail.com",
+      "number_rg": "44165953",
+      "cpf": "01471969061",
+      "password": "12345689",
+      "address": {
+        "cep": "89255621",
+        "street": "Piçarras",
+        "city": "Jaraguá",
+        "state": "SC",
+        "region": "Centro",
+        "number": "134",
+        "complement": ""
+      },
+      "billings_day": {
+        "date": "2022-09-13"
+      },
+      "id": 2
     }
   ],
   "invoices": [
@@ -31,17 +52,40 @@
       "cashback": ""
     },
     {
+      "recipient": "EPP Energias do Mundo",
+      "amount": 230.23,
+      "date": "20-09-2022",
+      "code": 1234534,
+      "user_id": "Junior silva",
+      "id": 8
+    },
+    {
+      "recipient": "EPP Energias do Mundo",
+      "amount": 230.23,
+      "date": "20-09-2022",
+      "code": 1234534,
+      "user_id": 1,
+      "id": 9
+    },
+    {
+      "recipient": "EPP Energias do Mundo",
+      "amount": 230.23,
+      "date": "20-09-2022",
+      "code": 1234534,
+      "user_id": 1,
+      "id": 10
+    }
+  ],
+  "debts": [
+    {
       "id": 1234534,
       "amount": 230.23,
-      "recipient": "EPP Energias do Mundo",
-      "date": "18-09-2022"
+      "recipient": "EPP Energias do Mundo"
     },
     {
       "id": 545434326,
       "amount": 30.23,
-      "recipient": "DevInHouse Ltda",
-      "date": "18-09-2022"
+      "recipient": "DevInHouse Ltda"
     }
-    
   ]
 }

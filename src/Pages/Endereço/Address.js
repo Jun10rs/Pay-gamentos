@@ -14,7 +14,7 @@ import { useState } from "react";
 import { Picker } from "@react-native-picker/picker";
 
 import { commonStyles } from "../../Styles/CommonStyles";
-import { states } from "../States/states";
+import { states } from "../../Services/States/states";
 
 export default function Address({navigation, route}) {
   const { user } = route.params;

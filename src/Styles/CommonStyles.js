@@ -13,7 +13,9 @@ export const commonStyles = StyleSheet.create({
     color: "#5882FA",
     fontWeight: "bold",
     alignSelf: "center",
-    marginVertical: 30,
+    //marginVertical: 30,
+    marginTop: 40,
+    //backgroundColor: 'grey'
   },
 
   buttonInitial: {

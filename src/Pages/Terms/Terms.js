@@ -12,7 +12,7 @@ import {
 } from "react-native";
 
 import { commonStyles } from "../../Styles/CommonStyles";
-import { API } from "../../API/Api";
+import { API } from "../../Services/API/Api";
 
 export default function Terms({ navigation, route }) {
   const { user, address, billings } = route.params;

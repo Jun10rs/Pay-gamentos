@@ -7,7 +7,7 @@ import MaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityI
 import { FontAwesome } from "@expo/vector-icons";
 
 const StackApp = createStackNavigator();
-const StackDetail = createStackNavigator()
+const StackDetail = createStackNavigator();
 const Tab = createBottomTabNavigator();
 
 import Initial from "./src/Pages/Home/Initial";
@@ -20,24 +20,34 @@ import BarCode from "./src/Pages/BarCode/BarCode";
 import Tickets from "./src/Pages/Boletos/Tickets";
 import AccountData from "./src/Pages/DadosConta/AccountData";
 import DetailsTickets from "./src/Pages/DetailsTickets/DetailsTickets";
+import ScanCode from "./src/Pages/ScanCode/ScanCode";
 
+function StackTabs() {
+  return (
+    <StackDetail.Navigator initialRouteName="TabNavigator">
+      <StackDetail.Screen 
+      name="TabNavigator" 
+      component={TabNavigator} 
+      options={{
+        headerShown: false
+      }}
+      />
 
-// function detailsTickets(){
-//   return(
-//     <StackDetail.Navigator>
-//       <StackDetail.Screen
-//       name="DetailsTickets"
-//       component={DetailsTickets}
-//       />
-//     </StackDetail.Navigator>
-    
-//   )
-// }
+      <StackDetail.Screen 
+      name="DetailsTickets" 
+      component={DetailsTickets}
+      options={{
+        headerShown: false
+      }} 
+      />
+    </StackDetail.Navigator>
+  );
+}
 
-function HomeNavigator() {
+function TabNavigator() {
   return (
     <Tab.Navigator
-    initialRouteName="AccountData"
+      initialRouteName="AccountData"
       screenOptions={{
         tabBarActiveTintColor: "red",
         tabBarInactiveTintColor: "blue",
@@ -92,8 +102,8 @@ export default function App() {
     <NavigationContainer>
       <StackApp.Navigator initialRouteName="Initial">
         <StackApp.Screen
-          name="Home"
-          component={HomeNavigator}
+          name="StackTabs"
+          component={StackTabs}
           options={{
             headerShown: false,
           }}
