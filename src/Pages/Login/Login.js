@@ -5,7 +5,6 @@ import {
   TouchableOpacity,
   SafeAreaView,
   StyleSheet,
-  Alert,
   View,
 } from "react-native";
 
@@ -18,12 +17,18 @@ import Logo from "../../../assets/pay_gamentos.png";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Login({ navigation }) {
+  
+  //const [loading, setLoading] = useState(true);
   const [cpf, setCpf] = useState("");
   const [password, setPassword] = useState("");
 
   function navigateNewAccount() {
     navigation.navigate("Account");
   }
+
+  // setTimeout(() => {
+  //   setLoading(true);
+  // }, 3000);
 
   function validarLogin() {
     if (cpf.length < 11) {
@@ -39,6 +44,7 @@ export default function Login({ navigation }) {
               "@pay_gamentos:id_login",
               JSON.stringify(data[0])
             );
+            
             navigation.navigate("StackTabs");
           } else {
             alert("Usuário não encontrado");
@@ -49,15 +55,15 @@ export default function Login({ navigation }) {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={commonStyles.safeAreaContainer}>
       <View style={commonStyles.container}>
         <Image style={styles.logo} source={Logo} />
 
         <TextInput
           placeholder="CPF"
-          style={styles.input}
-          keyboardType="number-pad"
-          selectionColor="#5882FA"
+          style={commonStyles.input}
+          keyboardType="numeric"
+          selectionColor="#F2295F"
           onChangeText={setCpf}
           value={cpf}
           maxLength={11}
@@ -65,9 +71,9 @@ export default function Login({ navigation }) {
 
         <TextInput
           placeholder="Password"
-          style={styles.input}
-          selectionColor="#5882FA"
-          keyboardType="number-pad"
+          style={commonStyles.input}
+          selectionColor="#F2295F"
+          keyboardType="numeric"
           secureTextEntry
           onChangeText={setPassword}
           value={password}
@@ -94,22 +100,14 @@ const styles = StyleSheet.create({
     width: "80%",
     height: 150,
     //backgroundColor: "red",
-    marginBottom: 40,
-  },
-
-  input: {
-    width: "80%",
-    height: 50,
-    borderColor: "#5882FA",
-    borderWidth: 1,
-    borderRadius: 10,
-    marginBottom: 20,
-    padding: 10,
+    marginVertical: 50,
   },
 
   textFree: {
-    color: "#5882FA",
-    fontSize: 20,
+    color: "#F2295F",
+    fontSize: 22,
     marginTop: 30,
+    fontWeight: 'bold',
+    textDecorationLine: "underline"
   },
 });

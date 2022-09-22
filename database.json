@@ -43,37 +43,20 @@
   ],
   "invoices": [
     {
-      "id": 2,
-      "amount": 320.54,
-      "recipient": "Celesc",
-      "date": "15-09-2022",
-      "code": "",
-      "user_id": "",
-      "cashback": ""
-    },
-    {
-      "recipient": "EPP Energias do Mundo",
-      "amount": 230.23,
-      "date": "20-09-2022",
-      "code": 1234534,
-      "user_id": "Junior silva",
-      "id": 8
-    },
-    {
       "recipient": "EPP Energias do Mundo",
       "amount": 230.23,
       "date": "20-09-2022",
       "code": 1234534,
       "user_id": 1,
-      "id": 9
+      "id": 3
     },
     {
-      "recipient": "EPP Energias do Mundo",
-      "amount": 230.23,
+      "recipient": "DevInHouse Ltda",
+      "amount": 30.23,
       "date": "20-09-2022",
-      "code": 1234534,
+      "id": 545434326,
       "user_id": 1,
-      "id": 10
+      "cashback": 3.023
     }
   ],
   "debts": [

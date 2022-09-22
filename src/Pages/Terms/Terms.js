@@ -7,7 +7,6 @@ import {
   TouchableOpacity,
   SafeAreaView,
   StatusBar,
-  TextInput,
   Switch,
 } from "react-native";
 
@@ -15,12 +14,12 @@ import { commonStyles } from "../../Styles/CommonStyles";
 import { API } from "../../Services/API/Api";
 
 export default function Terms({ navigation, route }) {
+
   const { user, address, billings } = route.params;
   console.log(route.params);
 
   const [enabled, setEnabled] = useState(false);
 
-  //const toggleSwitch = () => setEnabled((previousState) => !previousState);
 
   function returnBillings() {
     navigation.navigate("Billings");
@@ -52,7 +51,7 @@ export default function Terms({ navigation, route }) {
       },
     })
       .then(() => {
-        alert("conta cadastrada");
+        alert("Conta cadastrada com sucesso");
         navigation.navigate("Login");
       })
       .catch(() => alert("possivel erro"));
@@ -61,8 +60,8 @@ export default function Terms({ navigation, route }) {
   //console.log(addProfile)
 
   return (
-    <SafeAreaView>
-      <StatusBar backgroundColor="#5882FA" />
+    <SafeAreaView style={commonStyles.safeAreaContainer}>
+      <StatusBar backgroundColor="#F2295F" />
 
       <ScrollView>
         <View style={commonStyles.container}>
@@ -118,24 +117,24 @@ export default function Terms({ navigation, route }) {
 
           <View style={styles.checkbox}>
             <Switch
-              trackColor={{ false: "#767577", true: "#5882FA" }}
-              thumbColor={enabled ? "#FFDE59" : "#f4f3f4"}
+              trackColor={{ false: "#131426", true: "#131426" }}
+              thumbColor={enabled ? "#F2295F" : "#16F28B"}
               ios_backgroundColor="#3e3e3e"
               onValueChange={() => setEnabled(!enabled)}
               value={enabled}
             />
-            <Text style={{ color: "#5882FA", fontSize: 20, marginLeft: 10 }}>
+            <Text style={styles.textCheckbox}>
               Aceito os termos
             </Text>
           </View>
 
           <View style={commonStyles.boxButton}>
-            <TouchableOpacity style={styles.button} onPress={returnBillings}>
+            <TouchableOpacity style={commonStyles.buttonForm} onPress={returnBillings}>
               <Text style={commonStyles.buttonText}>Voltar</Text>
             </TouchableOpacity>
 
             <TouchableOpacity 
-            style={styles.button} 
+            style={commonStyles.buttonForm} 
             onPress={addProfile}
             disabled={!enabled}
             >
@@ -154,6 +153,7 @@ const styles = StyleSheet.create({
     textAlign: "justify",
     marginHorizontal: 20,
     marginVertical: 20,
+    color: '#424242'
   },
 
   checkbox: {
@@ -161,14 +161,9 @@ const styles = StyleSheet.create({
     alignItems: "center",
   },
 
-  button: {
-    width: "45%",
-    height: 50,
-    backgroundColor: "#5882FA",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 10,
-    borderRadius: 10,
-    marginBottom: 20,
-  },
+  textCheckbox: {
+    color: "#F2295F", 
+    fontSize: 20, 
+    marginLeft: 10
+  }
 });

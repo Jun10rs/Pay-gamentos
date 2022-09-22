@@ -14,14 +14,13 @@ import { commonStyles } from "../../Styles/CommonStyles";
 //import { API } from "../API/Api";
 
 export default function Account({ navigation }) {
+  
   const [fullname, setFullmane] = useState("");
   const [phone_number, setPhone_number] = useState("");
   const [email, setEmail] = useState("");
   const [number_rg, setNumber_rg] = useState("");
   const [cpf, setCpf] = useState("");
   const [password, setPassword] = useState("");
-
-  const [login, setlogin] = useState ([])
 
   function returnInitial() {
     navigation.navigate("Initial");
@@ -55,75 +54,81 @@ export default function Account({ navigation }) {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <StatusBar backgroundColor="#5882FA" />
+    <SafeAreaView style={commonStyles.safeAreaContainer}>
+      <StatusBar backgroundColor="#F2295F" />
 
       <ScrollView>
-        <View style={styles.container}>
-          <Text style={styles.title}>NOVA CONTA</Text>
+        <View style={commonStyles.container}>
+          <Text style={commonStyles.title}>NOVA CONTA</Text>
 
-          <Text style={styles.inputText}>Nome completo</Text>
+          <Text style={commonStyles.inputText}>Nome completo</Text>
           <TextInput
             style={commonStyles.input}
-            selectionColor="#5882FA"
+            selectionColor="#F2295F"
             maxLength={120}
             onChangeText={setFullmane}
             value={fullname}
           />
 
-          <Text style={styles.inputText}>Telefone</Text>
+          <Text style={commonStyles.inputText}>Telefone</Text>
           <TextInput
             style={commonStyles.input}
-            selectionColor="#5882FA"
+            selectionColor="#F2295F"
             keyboardType="phone-pad"
             onChangeText={setPhone_number}
             value={phone_number}
           />
 
-          <Text style={styles.inputText}>Email</Text>
+          <Text style={commonStyles.inputText}>Email</Text>
           <TextInput
             style={commonStyles.input}
-            selectionColor="#5882FA"
+            selectionColor="#F2295F"
             keyboardType="email-address"
             onChangeText={setEmail}
             value={email}
           />
 
-          <Text style={styles.inputText}>Nº do RG</Text>
+          <Text style={commonStyles.inputText}>Nº do RG</Text>
           <TextInput
             style={commonStyles.input}
-            selectionColor="#5882FA"
+            selectionColor="#F2295F"
             keyboardType="numeric"
             onChangeText={setNumber_rg}
             value={number_rg}
           />
 
-          <Text style={styles.inputText}>CPF</Text>
+          <Text style={commonStyles.inputText}>CPF</Text>
           <TextInput
             style={commonStyles.input}
-            selectionColor="#5882FA"
+            selectionColor="#F2295F"
             keyboardType="numeric"
             maxLength={11}
             onChangeText={setCpf}
             value={cpf}
           />
 
-          <Text style={styles.inputText}>Password</Text>
+          <Text style={commonStyles.inputText}>Password</Text>
           <TextInput
             style={commonStyles.input}
-            selectionColor="#5882FA"
+            selectionColor="#F2295F"
             maxLength={16}
             secureTextEntry
             onChangeText={setPassword}
             value={password}
           />
 
-          <View style={styles.boxButton}>
-            <TouchableOpacity style={styles.button} onPress={returnInitial}>
+          <View style={commonStyles.boxButton}>
+            <TouchableOpacity
+              style={commonStyles.buttonForm}
+              onPress={returnInitial}
+            >
               <Text style={commonStyles.buttonText}>Voltar</Text>
             </TouchableOpacity>
 
-            <TouchableOpacity style={styles.button} onPress={saveRegistration}>
+            <TouchableOpacity
+              style={commonStyles.buttonForm}
+              onPress={saveRegistration}
+            >
               <Text style={commonStyles.buttonText}>Continuar</Text>
             </TouchableOpacity>
           </View>
@@ -132,43 +137,3 @@ export default function Account({ navigation }) {
     </SafeAreaView>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-  },
-
-  inputText: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginLeft: 42,
-    marginBottom: 5,
-    color: "#585858",
-    alignSelf: "flex-start",
-  },
-
-  title: {
-    fontSize: 30,
-    color: "#5882FA",
-    fontWeight: "bold",
-    alignSelf: "center",
-    marginVertical: 20,
-  },
-
-  boxButton: {
-    flexDirection: "row",
-    width: "80%",
-    //backgroundColor: 'red',
-    justifyContent: "space-between",
-  },
-
-  button: {
-    width: "45%",
-    height: 50,
-    backgroundColor: "#5882FA",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 20,
-    borderRadius: 10,
-  },
-});

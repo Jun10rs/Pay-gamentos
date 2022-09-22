@@ -3,14 +3,15 @@ import {
   TouchableOpacity,
   Dimensions,
   SafeAreaView,
-  StatusBar
+  StatusBar,
+  View
 } from "react-native";
 
 import LottieView from "lottie-react-native";
 
 import { commonStyles } from "../../Styles/CommonStyles";
 
-import Animation from "../../../assets/94500-snap-and-pay.json";
+import Animation from "../../../assets/ZByLJvonQa.json";
 
 export default function Initial({navigation}) {
  
@@ -23,12 +24,12 @@ export default function Initial({navigation}) {
    }
 
   return (
-    <SafeAreaView style={commonStyles.container}>
-      <StatusBar backgroundColor="#5882FA" />
-
+    <SafeAreaView style={commonStyles.safeAreaContainer}>
+      <StatusBar backgroundColor="#F2295F" />
+      <View style={commonStyles.container}>
       <LottieView
         autoPlay
-        style={{ height: Dimensions.get("screen").height * 0.4, marginBottom: 20 }}
+        style={{ height: Dimensions.get("screen").height * 0.45, marginVertical: 20 }}
         source={Animation}
       />
 
@@ -43,6 +44,10 @@ export default function Initial({navigation}) {
       >
         <Text style={commonStyles.buttonText}>Fazer login</Text>
       </TouchableOpacity>
+
+      </View>
+
+      
     </SafeAreaView>
   );
 }

@@ -13,14 +13,15 @@ import { useState } from "react";
 import { Calendar } from "react-native-calendars";
 import { commonStyles } from "../../Styles/CommonStyles";
 
-import { format, parseISO } from "date-fns";
-import ptBR from "date-fns/locale/pt-BR";
+import { format } from "date-fns";
+//import ptBR from "date-fns/locale/pt-BR";
 
 export default function Billings({ navigation, route }) {
+
   const { user, address } = route.params;
   console.log(route.params);
 
-  const dataAtual = format(new Date(), "dd-MM-yyy");
+  const dataAtual = format(new Date(), "yyy-MM-dd");
   //console.log (dataAtual)
 
   const [date, setDate] = useState(dataAtual);
@@ -41,10 +42,10 @@ export default function Billings({ navigation, route }) {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
+    <SafeAreaView style={commonStyles.safeAreaContainer}>
       <StatusBar backgroundColor="#5882FA" />
 
-      <View style={styles.container}>
+      <View style={commonStyles.container}>
         <Text style={commonStyles.title}>Qual a data da Cobrança?</Text>
 
         <Calendar
@@ -54,26 +55,27 @@ export default function Billings({ navigation, route }) {
               selected: true,
               marked: true,
               selectedColor: "#FFF",
-              dotColor: "red",
+              dotColor: "#F2295F",
             },
           }}
           onDayPress={(currentDate) => setDate(currentDate.dateString)}
           theme={{
+            
             selectedDayTextColor: "black",
             todayTextColor: "#FFF",
-            calendarBackground: "#FFDE59",
+            calendarBackground: "#16F28B",
             dayTextColor: "black",
             arrowColor: "#FFF",
-            monthTextColor: "black",
+            monthTextColor: "#15BF81",
           }}
         />
 
         <View style={commonStyles.boxButton}>
-          <TouchableOpacity style={styles.button} onPress={returnAddress}>
+          <TouchableOpacity style={commonStyles.buttonForm} onPress={returnAddress}>
             <Text style={commonStyles.buttonText}>Voltar</Text>
           </TouchableOpacity>
 
-          <TouchableOpacity style={styles.button} onPress={navigateTerms}>
+          <TouchableOpacity style={commonStyles.buttonForm} onPress={navigateTerms}>
             <Text style={commonStyles.buttonText}>Continuar</Text>
           </TouchableOpacity>
         </View>
@@ -83,26 +85,13 @@ export default function Billings({ navigation, route }) {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-  },
 
   calendar: {
-    backgroundColor: "#819FF7",
-    borderRadius: 10,
-    marginVertical: 30,
+    backgroundColor: "#131426",
+    //borderRadius: 10,
+    marginTop: 30,
     width: Dimensions.get("screen").width * 0.8,
     marginBottom: 200,
   },
 
-  button: {
-    width: "45%",
-    height: 50,
-    backgroundColor: "#5882FA",
-    alignItems: "center",
-    justifyContent: "center",
-    marginTop: 10,
-    borderRadius: 10,
-    marginBottom: 20,
-  },
 });

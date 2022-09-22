@@ -11,7 +11,6 @@ import {
 } from "react-native";
 import { API } from "../../Services/API/Api";
 import { commonStyles } from "../../Styles/CommonStyles";
-import { useIsFocused } from "@react-navigation/native";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 //import { id } from "date-fns/locale";
 
@@ -19,7 +18,7 @@ export default function BarCode({ navigation }) {
   const [result, setResult] = useState("");
   const [hasPermission, setHasPermission] = useState(false);
   const [scanned, setScanned] = useState(false);
-  const telaFocada = useIsFocused("");
+ 
 
   const getPermission = async () => {
     const { status } = await BarCodeScanner.requestPermissionsAsync();
@@ -28,11 +27,13 @@ export default function BarCode({ navigation }) {
   };
 
   useEffect(() => {
-    if (telaFocada === true) {
-      getPermission();
-    }
     getResult();
   }, []);
+
+  function openCamera() {
+    setScanned(false);
+    getPermission();
+  }
 
   const getResult = async () => {
     const value = await AsyncStorage.getItem("@pay_gamentos:id_login");
@@ -51,31 +52,31 @@ export default function BarCode({ navigation }) {
             amount: data.amount,
             user_id: result.id,
             date: result.billing_day,
+          
           },
         });
         console.log(data);
       })
       .catch(() => alert("Boleto não encontrado"));
     setScanned(true);
-    console.log(data);
+    //console.log(data);
   }
 
-  function openCamera() {
-    setScanned(false);
-    getPermission();
-  }
+  
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <StatusBar backgroundColor="#5882FA" />
-      <Text style={commonStyles.title}>Olá, {result.fullname}</Text>
+    <SafeAreaView style={commonStyles.safeAreaContainer}>
+      <StatusBar backgroundColor="#F2295F" />
 
       <View style={commonStyles.container}>
+
+      <Text style={commonStyles.title}>Olá, {result.fullname}</Text>
+
         {hasPermission === false && <Text>Permissão para câmera negada</Text>}
 
         {hasPermission === true && scanned === false && (
           <BarCodeScanner
-            barCodeTypes={[BarCodeScanner.Constants.BarCodeType.code39]}
+            //barCodeTypes={[BarCodeScanner.Constants.BarCodeType.code39]}
             onBarCodeScanned={getVerification}
             style={{
               width: Dimensions.get("screen").width * 0.9,
@@ -84,7 +85,7 @@ export default function BarCode({ navigation }) {
           />
         )}
         <TouchableOpacity
-          style={commonStyles.buttonInitial}
+          style={{...commonStyles.buttonInitial, marginTop: Dimensions.get("screen").width * 1.3}}
           onPress={openCamera}
         >
           <Text style={commonStyles.buttonText}>Scan BarCode</Text>

@@ -3,21 +3,14 @@ import {
   View,
   SafeAreaView,
   StatusBar,
-  TouchableOpacity,
   StyleSheet,
 } from "react-native";
 import { commonStyles } from "../../Styles/CommonStyles";
 import { API } from "../../Services/API/Api";
 import { useEffect, useState } from "react";
-import { Ionicons } from "@expo/vector-icons";
 import { useIsFocused } from "@react-navigation/native";
 
-// const [amount, setAmount] = useState("");
-// const [date, setDate] = useState("");
-// const [recipient, setRecipient] = useState("");
-
 export default function Tickets() {
-  
   const telaFocada = useIsFocused();
 
   const [invoices, setInvoices] = useState([]);
@@ -26,7 +19,7 @@ export default function Tickets() {
     if (telaFocada === true) {
       getTickets();
     }
-  }, []);
+  }, [telaFocada]);
 
   function getTickets() {
     fetch(API + "/invoices")
@@ -41,23 +34,21 @@ export default function Tickets() {
   }
 
   return (
-    <SafeAreaView style={{ flex: 1 }}>
-      <StatusBar backgroundColor="#5882FA" />
+    <SafeAreaView style={commonStyles.safeAreaContainer}>
+      <StatusBar backgroundColor="#F2295F" />
+
       <Text style={commonStyles.title}>Boletos Pagos</Text>
 
-      <View style={styles.container}>
-        {invoices.map((invoices, id) => (
+      <View style={commonStyles.container}>
+
+        {
+        invoices.map((invoices, id) => (
+          
           <View style={styles.boxTickets} key={id}>
             <Text style={styles.textDate}>{invoices.date}</Text>
             <Text style={styles.textAmount}>R$ {invoices.amount}</Text>
 
             <Text style={styles.textRecipient}>{invoices.recipient}</Text>
-            <Ionicons
-              name="md-checkmark-done"
-              size={26}
-              color="green"
-              style={styles.icon}
-            />
           </View>
         ))}
       </View>
@@ -66,46 +57,36 @@ export default function Tickets() {
 }
 
 const styles = StyleSheet.create({
-  container: {
-    alignItems: "center",
-    justifyContent: "center",
-    //backgroundColor: "green",
-    width: "90%",
-    marginLeft: 20,
-    //flex: 1
-  },
-
+ 
   boxTickets: {
     borderRadius: 10,
     borderWidth: 2,
     width: "90%",
     height: 90,
-    borderColor: "#5882FA",
-    padding: 5,
-    //backgroundColor: "grey",
+    borderColor: "#131426",
+    padding: 10,
+    backgroundColor: "#168C61",
     flexDirection: "row",
     flexWrap: "wrap",
     marginBottom: 20,
   },
+
   textDate: {
     fontSize: 18,
+    color: '#FFF'
   },
+
   textAmount: {
     fontSize: 20,
-    marginLeft: 100,
+    marginLeft: 140,
     fontWeight: "bold",
-    //backgroundColor: 'pink'
+    color: '#424242',
   },
 
   textRecipient: {
     fontSize: 22,
     fontWeight: "bold",
-    color: "#FF4000",
-    marginTop: 15,
-    //backgroundColor: "grey",
-  },
-  icon: {
-    marginTop: 20,
-    marginStart: 40,
+    color: "#16F28B",
+    marginTop: 10,
   },
 });
