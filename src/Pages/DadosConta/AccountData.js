@@ -17,7 +17,6 @@ export default function AccountData({ navigation }) {
   
   const [result, setResult] = useState("");
 
-
   useEffect(() => {
     getResult();
   }, [getResult]);
@@ -33,7 +32,6 @@ export default function AccountData({ navigation }) {
   }
 
   
-
   return (
     <SafeAreaView style={commonStyles.safeAreaContainer}>
       <StatusBar backgroundColor="#F2295F" />
@@ -127,6 +125,5 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     color: '#424242',
     fontWeight: 'bold',
-    //textDecorationLine:"underline"
   },
 });

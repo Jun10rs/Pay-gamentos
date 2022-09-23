@@ -20,23 +20,23 @@
       "billing_day": "20-09-2022"
     },
     {
-      "fullname": "Juliana b a ",
-      "phone_number": "47988162356",
-      "email": "juju@hotmail.com",
-      "number_rg": "44165953",
-      "cpf": "01471969061",
-      "password": "12345689",
+      "fullname": "Yeusisisisieiei",
+      "phone_number": "3464646",
+      "email": "Ueueieieieie",
+      "number_rg": "64646464656",
+      "cpf": "51346498989",
+      "password": "1526373834",
       "address": {
-        "cep": "89255621",
-        "street": "Piçarras",
-        "city": "Jaraguá",
+        "cep": "89255-410",
+        "street": "Rua Adolpho Augusto Alfredo Ziemann",
+        "city": "Jaraguá do Sul",
         "state": "SC",
-        "region": "Centro",
-        "number": "134",
+        "region": "Czerniewicz",
+        "number": "12345",
         "complement": ""
       },
       "billings_day": {
-        "date": "2022-09-13"
+        "date": "2022-09-06"
       },
       "id": 2
     }
@@ -45,18 +45,47 @@
     {
       "recipient": "EPP Energias do Mundo",
       "amount": 230.23,
-      "date": "20-09-2022",
+      "date": "21-09-22 23:24",
       "code": 1234534,
       "user_id": 1,
+      "cashback": "23.02",
+      "id": 1
+    },
+    {
+      "recipient": "EPP Energias do Mundo",
+      "amount": 230.23,
+      "date": "22-09-22 23:50",
+      "code": 1234534,
+      "user_id": 1,
+      "cashback": "23.02",
+      "id": 2
+    },
+    {
+      "recipient": "EPP Energias do Mundo",
+      "amount": 230.23,
+      "date": "23-09-22 00:56",
+      "code": 1234534,
+      "user_id": 1,
+      "cashback": "23.02",
       "id": 3
     },
     {
-      "recipient": "DevInHouse Ltda",
-      "amount": 30.23,
-      "date": "20-09-2022",
-      "id": 545434326,
+      "recipient": "EPP Energias do Mundo",
+      "amount": 230.23,
+      "date": "23-09-22 01:18",
+      "code": 1234534,
       "user_id": 1,
-      "cashback": 3.023
+      "cashback": "23.02",
+      "id": 4
+    },
+    {
+      "recipient": "EPP Energias do Mundo",
+      "amount": 230.23,
+      "date": "23-09-22 01:24",
+      "code": 1234534,
+      "user_id": 1,
+      "cashback": "23.02",
+      "id": 5
     }
   ],
   "debts": [

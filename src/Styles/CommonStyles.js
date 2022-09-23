@@ -51,10 +51,6 @@ export const commonStyles = StyleSheet.create({
 
   },
 
-  logo: {
-    color: "#FFDE59",
-  },
-
   input: {
     width: "80%",
     height: 50,

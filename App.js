@@ -20,25 +20,25 @@ import BarCode from "./src/Pages/BarCode/BarCode";
 import Tickets from "./src/Pages/Boletos/Tickets";
 import AccountData from "./src/Pages/DadosConta/AccountData";
 import DetailsTickets from "./src/Pages/DetailsTickets/DetailsTickets";
-//import ScanCode from "./src/Pages/ScanCode/ScanCode";
+
 
 function StackTabs() {
   return (
     <StackDetail.Navigator initialRouteName="TabNavigator">
-      <StackDetail.Screen 
-      name="TabNavigator" 
-      component={TabNavigator} 
-      options={{
-        headerShown: false
-      }}
+      <StackDetail.Screen
+        name="TabNavigator"
+        component={TabNavigator}
+        options={{
+          headerShown: false,
+        }}
       />
 
-      <StackDetail.Screen 
-      name="DetailsTickets" 
-      component={DetailsTickets}
-      options={{
-        headerShown: false
-      }} 
+      <StackDetail.Screen
+        name="DetailsTickets"
+        component={DetailsTickets}
+        options={{
+          headerShown: false,
+        }}
       />
     </StackDetail.Navigator>
   );

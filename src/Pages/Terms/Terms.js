@@ -16,13 +16,12 @@ import { API } from "../../Services/API/Api";
 export default function Terms({ navigation, route }) {
 
   const { user, address, billings } = route.params;
-  console.log(route.params);
 
   const [enabled, setEnabled] = useState(false);
 
 
   function returnBillings() {
-    navigation.navigate("Billings");
+    navigation.goBack();
   }
 
   function addProfile() {
@@ -57,7 +56,6 @@ export default function Terms({ navigation, route }) {
       .catch(() => alert("possivel erro"));
   }
 
-  //console.log(addProfile)
 
   return (
     <SafeAreaView style={commonStyles.safeAreaContainer}>

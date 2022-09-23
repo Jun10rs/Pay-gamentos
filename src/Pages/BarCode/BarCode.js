@@ -6,13 +6,12 @@ import {
   SafeAreaView,
   StatusBar,
   TouchableOpacity,
-  StyleSheet,
   Dimensions,
 } from "react-native";
 import { API } from "../../Services/API/Api";
 import { commonStyles } from "../../Styles/CommonStyles";
 import AsyncStorage from "@react-native-async-storage/async-storage";
-//import { id } from "date-fns/locale";
+
 
 export default function BarCode({ navigation }) {
   const [result, setResult] = useState("");
@@ -50,20 +49,16 @@ export default function BarCode({ navigation }) {
             id: data.id,
             recipient: data.recipient,
             amount: data.amount,
-            user_id: result.id,
-            date: result.billing_day,
-          
+            user_id: result.id      
           },
         });
         console.log(data);
       })
       .catch(() => alert("Boleto não encontrado"));
     setScanned(true);
-    //console.log(data);
   }
 
   
-
   return (
     <SafeAreaView style={commonStyles.safeAreaContainer}>
       <StatusBar backgroundColor="#F2295F" />
@@ -76,7 +71,6 @@ export default function BarCode({ navigation }) {
 
         {hasPermission === true && scanned === false && (
           <BarCodeScanner
-            //barCodeTypes={[BarCodeScanner.Constants.BarCodeType.code39]}
             onBarCodeScanned={getVerification}
             style={{
               width: Dimensions.get("screen").width * 0.9,

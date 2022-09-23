@@ -6,6 +6,8 @@ import {
   SafeAreaView,
   StyleSheet,
   View,
+  ActivityIndicator,
+  ScrollView
 } from "react-native";
 
 import { useState } from "react";
@@ -13,12 +15,12 @@ import { API } from "../../Services/API/Api";
 
 import { commonStyles } from "../../Styles/CommonStyles";
 
-import Logo from "../../../assets/pay_gamentos.png";
+import Logo from "../../../assets/pay_gamentos3.png";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 
 export default function Login({ navigation }) {
   
-  //const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
   const [cpf, setCpf] = useState("");
   const [password, setPassword] = useState("");
 
@@ -26,9 +28,6 @@ export default function Login({ navigation }) {
     navigation.navigate("Account");
   }
 
-  // setTimeout(() => {
-  //   setLoading(true);
-  // }, 3000);
 
   function validarLogin() {
     if (cpf.length < 11) {
@@ -44,8 +43,12 @@ export default function Login({ navigation }) {
               "@pay_gamentos:id_login",
               JSON.stringify(data[0])
             );
-            
-            navigation.navigate("StackTabs");
+            setTimeout(()=> {
+              if(loading === true){
+                navigation.navigate("StackTabs");
+              }
+            },2000)
+            setLoading(false)
           } else {
             alert("Usuário não encontrado");
           }
@@ -56,6 +59,7 @@ export default function Login({ navigation }) {
 
   return (
     <SafeAreaView style={commonStyles.safeAreaContainer}>
+      <ScrollView>
       <View style={commonStyles.container}>
         <Image style={styles.logo} source={Logo} />
 
@@ -68,7 +72,7 @@ export default function Login({ navigation }) {
           value={cpf}
           maxLength={11}
         />
-
+  
         <TextInput
           placeholder="Password"
           style={commonStyles.input}
@@ -84,13 +88,21 @@ export default function Login({ navigation }) {
           style={commonStyles.buttonInitial}
           onPress={validarLogin}
         >
+          
           <Text style={commonStyles.buttonText}>Logar</Text>
         </TouchableOpacity>
-
+        {loading === false && 
+        <ActivityIndicator 
+        style={styles.indicator}
+        size={"large"}
+        color='#F2295F'
+        />}
+        
         <Text style={styles.textFree} onPress={navigateNewAccount}>
           Abrir conta gratuita
         </Text>
       </View>
+      </ScrollView>
     </SafeAreaView>
   );
 }
@@ -98,16 +110,20 @@ export default function Login({ navigation }) {
 const styles = StyleSheet.create({
   logo: {
     width: "80%",
-    height: 150,
-    //backgroundColor: "red",
-    marginVertical: 50,
+    height: 190,
+    marginVertical: 70,
   },
 
   textFree: {
     color: "#F2295F",
     fontSize: 22,
-    marginTop: 30,
+    marginTop: 20,
     fontWeight: 'bold',
     textDecorationLine: "underline"
   },
+
+  indicator:{
+    marginTop:20,
+  },
 });
+

@@ -9,19 +9,22 @@ import {
   View,
 } from "react-native";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 import { Picker } from "@react-native-picker/picker";
 
 import { commonStyles } from "../../Styles/CommonStyles";
 import { states } from "../../Services/States/states";
 
+
 export default function Address({ navigation, route }) {
-  
+
   const { user } = route.params;
   console.log(route.params);
 
-  const [cep, setCep] = useState("");
+  const [cep, setCep] = useState([]);
+  const [search, setSearch] = useState([]);
+
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
   const [state, setState] = useState("");
@@ -33,16 +36,48 @@ export default function Address({ navigation, route }) {
     navigation.navigate("Account");
   }
 
-  function saveAddress() {
+  // FUNÇÃO PARA USAR COM MAP
+
+  // function saveAddress() {
+  //   if (!cep) {
+  //     alert("Informe um CEP válido!");
+  //   } else if (!street) {
+  //     alert("Nome da rua obrigatório");
+  //   } else if (!city) {
+  //     alert("Nome da cidade obrigatório");
+  //   } else if (!state) {
+  //     alert("Selecione o estado!");
+  //   } else if (!region) {
+  //     alert("Nome do bairro obrigatório");
+  //   } else if (!number) {
+  //     alert("Informe o numero da residência");
+  //   } else {
+  //     navigation.navigate("Billings", {
+  //       user: user,
+  //       address: {
+  //         cep: cep,
+  //         street: street,
+  //         city: city,
+  //         state: state,
+  //         region: region,
+  //         number: number,
+  //         complement: complement,
+  //       },
+  //     });
+  //   }
+  // }
+
+  // FUNÇÃO PARA USAR COM API VIA CEP
+  function saveAddressApi() {
     if (!cep) {
       alert("Informe um CEP válido!");
-    } else if (!street) {
+    } else if (!search.logradouro) {
       alert("Nome da rua obrigatório");
-    } else if (!city) {
+    } else if (!search.localidade) {
       alert("Nome da cidade obrigatório");
-    } else if (!state) {
+    } else if (!search.uf) {
       alert("Selecione o estado!");
-    } else if (!region) {
+    } else if (!search.bairro) {
       alert("Nome do bairro obrigatório");
     } else if (!number) {
       alert("Informe o numero da residência");
@@ -50,17 +85,41 @@ export default function Address({ navigation, route }) {
       navigation.navigate("Billings", {
         user: user,
         address: {
-          cep: cep,
-          street: street,
-          city: city,
-          state: state,
-          region: region,
+          cep: search.cep,
+          street: search.logradouro,
+          city: search.localidade,
+          state: search.uf,
+          region: search.bairro,
           number: number,
           complement: complement,
         },
       });
     }
   }
+
+  function getCep() {
+    if (cep.length < 9 ) {
+      fetch("https://viacep.com.br/ws/" + cep + "/json/")
+        .then(async (response) => {
+          const data = await response.json();
+          setSearch(data);
+          console.log(data);
+          
+        })
+        .catch(() => {
+          alert("Erro");
+        });
+    } else {
+      alert("Digite um CEP válido!");
+    }
+  }
+
+  useEffect(() => {
+    if(cep.length === 8) {
+      getCep();
+    }
+    
+  }, []);
 
   return (
     <SafeAreaView style={commonStyles.safeAreaContainer}>
@@ -74,17 +133,18 @@ export default function Address({ navigation, route }) {
           <TextInput
             style={commonStyles.input}
             selectionColor="#F2295F"
-            maxLength={120}
+            maxLength={8}
             keyboardType="numeric"
             value={cep}
-            onChangeText={setCep}
+            onChangeText={(cep) => setCep(cep)}
+            onBlur={getCep}
           />
 
           <Text style={commonStyles.inputText}>Rua</Text>
           <TextInput
             style={commonStyles.input}
             selectionColor="#F2295F"
-            value={street}
+            value={search.logradouro}
             onChangeText={setStreet}
           />
 
@@ -92,7 +152,7 @@ export default function Address({ navigation, route }) {
           <TextInput
             style={commonStyles.input}
             selectionColor="#F2295F"
-            value={city}
+            value={search.localidade}
             onChangeText={setCity}
           />
 
@@ -103,8 +163,16 @@ export default function Address({ navigation, route }) {
               onValueChange={(value) => setState(value)}
               style={styles.select}
             >
-              <Picker.Item label="Selecione" value="" />
-              {states.map((uf) => (
+              
+              <Picker.Item
+                style={{ color: "red" }}
+                label={search.uf}
+                value={search.uf}
+              />
+
+              {/* LÓGICA PARA USAR COM MAP */}
+              {/* <Picker.Item label="Selecione" value="" /> */}
+              {/* {states.map((uf) => (
                 <Picker.Item
                   style={{
                     //backgroundColor: '#15BF81',
@@ -114,7 +182,8 @@ export default function Address({ navigation, route }) {
                   label={uf.nome}
                   value={uf.sigla}
                 />
-              ))}
+              ))} */}
+
             </Picker>
           </View>
 
@@ -122,7 +191,7 @@ export default function Address({ navigation, route }) {
           <TextInput
             style={commonStyles.input}
             selectionColor="#F2295F"
-            value={region}
+            value={search.bairro}
             onChangeText={setRegion}
           />
 
@@ -141,7 +210,6 @@ export default function Address({ navigation, route }) {
             placeholder="opcional"
             selectionColor="#F2295F"
             maxLength={16}
-            secureTextEntry
             value={complement}
             onChangeText={setComplement}
           />
@@ -156,7 +224,8 @@ export default function Address({ navigation, route }) {
 
             <TouchableOpacity
               style={commonStyles.buttonForm}
-              onPress={saveAddress}
+              //onPress={saveAddress}
+              onPress={saveAddressApi}
             >
               <Text style={commonStyles.buttonText}>Continuar</Text>
             </TouchableOpacity>

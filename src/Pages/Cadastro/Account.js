@@ -3,7 +3,6 @@ import {
   Text,
   SafeAreaView,
   TextInput,
-  StyleSheet,
   TouchableOpacity,
   ScrollView,
   StatusBar,
@@ -11,7 +10,6 @@ import {
 } from "react-native";
 
 import { commonStyles } from "../../Styles/CommonStyles";
-//import { API } from "../API/Api";
 
 export default function Account({ navigation }) {
   

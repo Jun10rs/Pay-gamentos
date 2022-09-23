@@ -5,21 +5,22 @@ import {
   Text,
   StyleSheet,
   StatusBar,
-  TextInput,
+  ActivityIndicator,
   TouchableOpacity,
 } from "react-native";
 
 import { API } from "../../Services/API/Api";
 import { commonStyles } from "../../Styles/CommonStyles";
 
-//import { format, parseISO } from "date-fns";
-//import ptBR from "date-fns/locale/pt-BR";
+import { format } from "date-fns";
+import ptBR from "date-fns/locale/pt-BR";
 
 export default function DetailsTickets({ navigation, route }) {
-  //const [cashback, setCashback] = useState("");
+
+  const dataAtual = format(new Date(), "dd-MM-yy HH:mm", { locale: ptBR });
+  const [loading, setLoading] = useState(true);
 
   const { debts } = route.params;
-  console.log(route.params);
 
   function returnScan() {
     navigation.navigate("BarCode");
@@ -30,19 +31,24 @@ export default function DetailsTickets({ navigation, route }) {
       body: JSON.stringify({
         recipient: debts.recipient,
         amount: debts.amount,
-        date: debts.date,
+        date: dataAtual,
         code: debts.id,
         user_id: debts.user_id,
-        cashback:debts.amount*0.1,
+        cashback: Number(debts.amount * 0.1).toFixed(2),
       }),
       method: "POST",
       headers: {
         "Content-type": "application/json",
       },
     })
-     .then(() => {
-        alert("Boleto pago com sucesso!");
-        navigation.navigate("Tickets");
+      .then(() => {
+        setTimeout(() => {
+          if (loading === true) {
+            alert("Boleto pago com sucesso!");
+            navigation.navigate("Tickets");
+          }
+        }, 2000);
+        setLoading(false)
       })
       .catch(() => alert("possivel erro"));
   }
@@ -63,10 +69,17 @@ export default function DetailsTickets({ navigation, route }) {
           <Text style={styles.valueTickets}>{debts.id}</Text>
 
           <Text style={styles.titleTickets}>Cashback</Text>
-          <Text style={styles.valueTickets}>R$ {debts.amount * 0.1}</Text>
+          <Text style={styles.valueTickets}>
+            R$ {Number(debts.amount * 0.1).toFixed(2)}
+          </Text>
         </View>
 
         <View style={styles.boxButton}>
+        {loading === false && 
+        <ActivityIndicator 
+        size={"large"}
+        color='#F2295F'
+        />}
           <TouchableOpacity
             style={commonStyles.buttonInitial}
             onPress={savedTickets}
@@ -117,4 +130,5 @@ const styles = StyleSheet.create({
     padding: 10,
     backgroundColor: "#168C61",
   },
+  
 });
