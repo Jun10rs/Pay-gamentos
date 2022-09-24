@@ -12,7 +12,6 @@ import {
 import { commonStyles } from "../../Styles/CommonStyles";
 
 export default function Account({ navigation }) {
-  
   const [fullname, setFullmane] = useState("");
   const [phone_number, setPhone_number] = useState("");
   const [email, setEmail] = useState("");
@@ -50,6 +49,8 @@ export default function Account({ navigation }) {
       });
     }
   }
+
+ 
 
   return (
     <SafeAreaView style={commonStyles.safeAreaContainer}>

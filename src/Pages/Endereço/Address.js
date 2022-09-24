@@ -23,7 +23,6 @@ export default function Address({ navigation, route }) {
   console.log(route.params);
 
   const [cep, setCep] = useState([]);
-  const [search, setSearch] = useState([]);
 
   const [street, setStreet] = useState("");
   const [city, setCity] = useState("");
@@ -36,48 +35,18 @@ export default function Address({ navigation, route }) {
     navigation.navigate("Account");
   }
 
-  // FUNÇÃO PARA USAR COM MAP
 
-  // function saveAddress() {
-  //   if (!cep) {
-  //     alert("Informe um CEP válido!");
-  //   } else if (!street) {
-  //     alert("Nome da rua obrigatório");
-  //   } else if (!city) {
-  //     alert("Nome da cidade obrigatório");
-  //   } else if (!state) {
-  //     alert("Selecione o estado!");
-  //   } else if (!region) {
-  //     alert("Nome do bairro obrigatório");
-  //   } else if (!number) {
-  //     alert("Informe o numero da residência");
-  //   } else {
-  //     navigation.navigate("Billings", {
-  //       user: user,
-  //       address: {
-  //         cep: cep,
-  //         street: street,
-  //         city: city,
-  //         state: state,
-  //         region: region,
-  //         number: number,
-  //         complement: complement,
-  //       },
-  //     });
-  //   }
-  // }
 
-  // FUNÇÃO PARA USAR COM API VIA CEP
-  function saveAddressApi() {
+  function saveAddress() {
     if (!cep) {
       alert("Informe um CEP válido!");
-    } else if (!search.logradouro) {
+    } else if (!street) {
       alert("Nome da rua obrigatório");
-    } else if (!search.localidade) {
+    } else if (!city) {
       alert("Nome da cidade obrigatório");
-    } else if (!search.uf) {
+    } else if (!state) {
       alert("Selecione o estado!");
-    } else if (!search.bairro) {
+    } else if (!region) {
       alert("Nome do bairro obrigatório");
     } else if (!number) {
       alert("Informe o numero da residência");
@@ -85,11 +54,11 @@ export default function Address({ navigation, route }) {
       navigation.navigate("Billings", {
         user: user,
         address: {
-          cep: search.cep,
-          street: search.logradouro,
-          city: search.localidade,
-          state: search.uf,
-          region: search.bairro,
+          cep: cep,
+          street: street,
+          city: city,
+          state: state,
+          region: region,
           number: number,
           complement: complement,
         },
@@ -98,13 +67,16 @@ export default function Address({ navigation, route }) {
   }
 
   function getCep() {
-    if (cep.length < 9 ) {
+    if (cep.length < 9) {
       fetch("https://viacep.com.br/ws/" + cep + "/json/")
         .then(async (response) => {
           const data = await response.json();
-          setSearch(data);
+          setStreet(data.logradouro);
+          setCity(data.localidade);
+          setState(data.uf);
+          setRegion(data.bairro);
+          setComplement(data.complemento)
           console.log(data);
-          
         })
         .catch(() => {
           alert("Erro");
@@ -118,7 +90,6 @@ export default function Address({ navigation, route }) {
     if(cep.length === 8) {
       getCep();
     }
-    
   }, []);
 
   return (
@@ -144,7 +115,7 @@ export default function Address({ navigation, route }) {
           <TextInput
             style={commonStyles.input}
             selectionColor="#F2295F"
-            value={search.logradouro}
+            value={street}
             onChangeText={setStreet}
           />
 
@@ -152,7 +123,7 @@ export default function Address({ navigation, route }) {
           <TextInput
             style={commonStyles.input}
             selectionColor="#F2295F"
-            value={search.localidade}
+            value={city}
             onChangeText={setCity}
           />
 
@@ -160,14 +131,12 @@ export default function Address({ navigation, route }) {
           <View style={styles.boxSelect}>
             <Picker
               selectedValue={state}
-              onValueChange={(value) => setState(value)}
+              onValueChange={setState}
               style={styles.select}
             >
-              
               <Picker.Item
-                style={{ color: "red" }}
-                label={search.uf}
-                value={search.uf}
+                label={state}
+                value={state}
               />
 
               {/* LÓGICA PARA USAR COM MAP */}
@@ -191,7 +160,7 @@ export default function Address({ navigation, route }) {
           <TextInput
             style={commonStyles.input}
             selectionColor="#F2295F"
-            value={search.bairro}
+            value={region}
             onChangeText={setRegion}
           />
 
@@ -224,8 +193,7 @@ export default function Address({ navigation, route }) {
 
             <TouchableOpacity
               style={commonStyles.buttonForm}
-              //onPress={saveAddress}
-              onPress={saveAddressApi}
+              onPress={saveAddress}
             >
               <Text style={commonStyles.buttonText}>Continuar</Text>
             </TouchableOpacity>
